@@ -143,13 +143,13 @@
         function validateAndLogin() {
             const code = loginInput.value.trim().toUpperCase();
             
-            // Validation: Range SGS0001 - SGS0400
+            // Validation: Range SGS0001 - SGS0500
             const isValidFormat = /^SGS\d{4}$/.test(code);
             let isValidRange = false;
 
             if (isValidFormat) {
                 const numPart = parseInt(code.substring(3), 10);
-                if (numPart >= 1 && numPart <= 400) {
+                if (numPart >= 1 && numPart <= 500) {
                     isValidRange = true;
                 }
             }
