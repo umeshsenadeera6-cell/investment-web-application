@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#4ade80">
+    <title>Serendib Investment Calculator</title>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="glass-card">
+        <div class="spinner-ring"></div>
+        <h2 class="loading-title">Serendib</h2>
+        <p class="loading-subtitle">Investment Calculator</p>
+    </div>
+</div>
+<!-- LOGIN SCREEN -->
+<div class="login-overlay" id="loginOverlay" style="display: none;">
+    <div class="glass-card login-card">
+        <div class="login-icon"><i class="fas fa-shield-halved"></i></div>
+        <h2 class="login-title">Verification Required</h2>
+        <p class="login-subtitle">Please enter your access code</p>
+        
+        <div class="input-group">
+            <input type="text" id="verificationCode" placeholder="Enter Code (e.g. SGS0001)" autocomplete="off">
+            <div class="error-msg" id="loginError">Invalid verification code</div>
+        </div>
+        
+        <button id="loginBtn" class="login-btn">
+            Verify & Enter <i class="fas fa-arrow-right"></i>
+        </button>
+        
+        <p class="login-footer">Protected by Serendib Security</p>
+    </div>
+</div>
+
+<div id="app-root"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

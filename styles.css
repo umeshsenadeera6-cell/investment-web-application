@@ -1,0 +1,676 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #10b981;
+    --secondary: #059669;
+    --light: #ecfdf5;
+    --lighter: #d1fae5;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, var(--light) 0%, var(--lighter) 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+}
+::-webkit-scrollbar-track {
+    background: var(--lighter);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+/* ========= LOADING SCREEN ========= */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--light) 0%, var(--lighter) 100%);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeOutLoader 0.6s ease-out 1.5s forwards;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+@keyframes fadeOutLoader {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Glassmorphism Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 28px;
+    padding: 2.8rem 2.2rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+    max-width: 280px;
+    width: 90%;
+    animation: slideUpCard 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes slideUpCard {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Spinner Ring */
+.spinner-ring {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1.5rem auto;
+    border: 4px solid rgba(16, 185, 129, 0.2);
+    border-radius: 50%;
+    border-top: 4px solid var(--primary);
+    border-right: 4px solid rgba(16, 185, 129, 0.5);
+    animation: spinLoader 1s cubic-bezier(0.65, 0.23, 0.35, 0.77) infinite;
+}
+
+@keyframes spinLoader {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Loading Title */
+.loading-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--secondary);
+    margin: 0.6rem 0 0.2rem 0;
+    letter-spacing: -0.5px;
+    animation: fadeInText 0.7s ease-out 0.2s backwards;
+}
+
+/* Loading Subtitle */
+.loading-subtitle {
+    font-size: 0.95rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.3px;
+    animation: fadeInText 0.7s ease-out 0.3s backwards;
+}
+
+@keyframes fadeInText {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Mobile Responsive */
+@media(max-width: 768px) {
+    .glass-card {
+        padding: 2.4rem 2rem;
+        max-width: 260px;
+    }
+
+    .spinner-ring {
+        width: 60px;
+        height: 60px;
+        border: 3px solid rgba(16, 185, 129, 0.2);
+        border-top: 3px solid var(--primary);
+        border-right: 3px solid rgba(16, 185, 129, 0.5);
+        margin-bottom: 1.2rem;
+    }
+
+    .loading-title {
+        font-size: 1.6rem;
+    }
+
+    .loading-subtitle {
+        font-size: 0.85rem;
+    }
+}
+
+@media(max-width: 480px) {
+    .glass-card {
+        padding: 2rem 1.5rem;
+        max-width: 240px;
+        border-radius: 24px;
+    }
+
+    .spinner-ring {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(16, 185, 129, 0.2);
+        border-top: 3px solid var(--primary);
+        border-right: 3px solid rgba(16, 185, 129, 0.5);
+        margin-bottom: 1rem;
+    }
+
+    .loading-title {
+        font-size: 1.4rem;
+    }
+
+    .loading-subtitle {
+        font-size: 0.8rem;
+    }
+}
+
+/* ========= MAIN APP ========= */
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1.8rem;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.2), transform 0.7s ease;
+    animation: slideUp 0.7s ease-out 1.8s forwards;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.app-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Header minimal */
+.brand-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+.brand-header h1 {
+    font-size: 2.4rem;
+    font-weight: 800;
+    background: linear-gradient(130deg, var(--secondary), var(--primary), #6fbf4c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+}
+.brand-header h1 i {
+    background: none;
+    -webkit-background-clip: unset;
+    color: #4caf50;
+    font-size: 2rem;
+}
+
+/* 4 sections grid - only cards with icons and titles */
+.plans-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+/* modern cards - clean, no calculation elements */
+.plan-card {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(0px);
+    border-radius: 2rem;
+    padding: 2.5rem 1.5rem;
+    box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(16, 185, 129, 0.2);
+    transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+.plan-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary), #86efac, var(--primary));
+    transform: scaleX(0);
+    transition: transform 0.5s ease;
+}
+.plan-card:hover::before {
+    transform: scaleX(1);
+}
+.plan-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 40px -16px rgba(16, 185, 129, 0.4);
+    border-color: #86efac;
+}
+
+/* icon section - prominent */
+.icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+.plan-icon-bg {
+    background: #efffeb;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+    box-shadow: 0 12px 20px rgba(74,222,128,0.2);
+}
+.plan-card:hover .plan-icon-bg {
+    transform: scale(1.08) rotate(2deg);
+    background: #e2fcdb;
+    box-shadow: 0 18px 28px rgba(74,222,128,0.3);
+}
+.plan-icon-bg i {
+    font-size: 3.5rem;
+    transition: transform 0.3s;
+}
+.plan-card:hover .plan-icon-bg i {
+    transform: scale(1.05);
+}
+
+.plan-title {
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    color: #1f3b1a;
+    letter-spacing: -0.3px;
+    position: relative;
+}
+
+/* subtle glow effect on title */
+.plan-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background: #4ade80;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.3s ease, width 0.3s ease;
+}
+.plan-card:hover .plan-title::after {
+    opacity: 1;
+    width: 60px;
+}
+
+/* Click Here Text */
+.click-text {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.plan-card:hover .click-text {
+    opacity: 1;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 0.8;
+        transform: translateY(0);
+    }
+}
+
+/* minimal footer */
+.minimal-footer {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 0.7rem;
+    color: #7fa06b;
+    opacity: 0.7;
+    letter-spacing: 0.5px;
+}
+
+/* responsive design */
+/* Tablet landscape & large devices */
+@media (max-width: 1100px) {
+    .plans-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.8rem;
+    }
+    .app-container {
+        padding: 1.8rem;
+    }
+    .plan-icon-bg {
+        width: 85px;
+        height: 85px;
+    }
+    .plan-icon-bg i {
+        font-size: 3rem;
+    }
+    .plan-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Tablet portrait */
+@media (max-width: 768px) {
+    .app-container {
+        padding: 1.5rem 1rem;
+    }
+    .brand-header {
+        margin-bottom: 2.5rem;
+    }
+    .brand-header h1 {
+        font-size: 2rem;
+    }
+    .plan-card {
+        padding: 1.8rem 1.3rem;
+    }
+}
+
+/* Mobile landscape */
+@media (max-width: 900px) and (orientation: landscape) {
+    .app-container {
+        padding: 0.8rem;
+    }
+    .brand-header {
+        margin-bottom: 1rem;
+    }
+    .plan-card {
+        padding: 1.2rem 1rem;
+    }
+}
+
+/* Mobile - small phones */
+@media (max-width: 650px) {
+    body {
+        padding: 10px;
+    }
+
+    .app-container {
+        padding: 1rem 0.8rem;
+    }
+
+    .plans-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .plan-card {
+        padding: 1.6rem 1.2rem;
+        border-radius: 1.2rem;
+    }
+
+    .plan-card:hover {
+        transform: translateY(-5px) !important;
+    }
+
+    .brand-header {
+        margin-bottom: 2rem;
+    }
+
+    .brand-header h1 {
+        font-size: 1.5rem;
+        gap: 8px;
+    }
+
+    .brand-header h1 i {
+        font-size: 1.4rem;
+    }
+
+    .plan-icon-bg {
+        width: 80px;
+        height: 80px;
+    }
+
+    .plan-icon-bg i {
+        font-size: 2.8rem;
+    }
+
+    .plan-title {
+        font-size: 1.4rem;
+    }
+
+    .minimal-footer {
+        margin-top: 1.5rem;
+        font-size: 0.7rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    body {
+        padding: 6px;
+    }
+
+    .app-container {
+        padding: 0.8rem 0.6rem;
+    }
+
+    .brand-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .plan-icon-bg {
+        width: 75px;
+        height: 75px;
+    }
+
+    .plan-title {
+        font-size: 1.2rem;
+    }
+}
+
+/* page transition animation */
+.fade-transition {
+    animation: pageReveal 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+}
+@keyframes pageReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* additional interactive pulse on cards (optional) */
+@keyframes cardPulse {
+    0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+    70% { box-shadow: 0 0 0 12px rgba(74, 222, 128, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+}
+.plan-card:active {
+    animation: cardPulse 0.4s ease-out;
+}
+
+@keyframes cardGlowIn {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.96);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ========= LOGIN SCREEN ========= */
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--light) 0%, var(--lighter) 100%);
+    z-index: 1500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.login-card {
+    max-width: 400px;
+    width: 90%;
+    padding: 3.5rem 2.5rem;
+}
+
+.login-icon {
+    font-size: 3.5rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    animation: iconBounce 2s infinite ease-in-out;
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.input-group {
+    margin: 2rem 0;
+    position: relative;
+}
+
+#verificationCode {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    border-radius: 1rem;
+    border: 2px solid rgba(16, 185, 129, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--secondary);
+    text-align: center;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#verificationCode:focus {
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.error-msg {
+    color: #ef4444;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.8rem;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.error-msg.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1.2rem;
+    border: none;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.login-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
+}
+
+.login-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.login-footer {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+    border-color: #ef4444 !important;
+}
+
+@media(max-width: 480px) {
+    .login-card {
+        padding: 2.5rem 1.5rem;
+    }
+    .login-icon {
+        font-size: 2.5rem;
+    }
+    .login-title {
+        font-size: 1.5rem;
+    }
+}

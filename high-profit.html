@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>High Profit Plan - Serendib Investment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e8f3e8 0%, #d4e8d4 100%);
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        /* main card - green theme */
+        .card {
+            max-width: 1200px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 30px 50px -20px rgba(0, 40, 0, 0.25);
+            overflow: hidden;
+            transition: all 0.2s;
+            border: 1px solid #c8e0c8;
+        }
+
+        /* header - green gradient */
+        .header {
+            background: linear-gradient(120deg, #1e4a2f, #2d6a3b);
+            padding: 2rem 2rem 1.5rem 2rem;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* selector area - fresh green accent */
+        .selector-area {
+            background: #ffffff;
+            padding: 1.8rem 2rem;
+            border-bottom: 1px solid #d4ecd4;
+        }
+
+        .select-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            gap: 1.2rem;
+            justify-content: space-between;
+        }
+
+        .select-group {
+            flex: 2;
+            min-width: 280px;
+        }
+
+        .select-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #2b6e3c;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .currency-input {
+            flex: 1;
+            padding: 0.9rem 1rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background-color: #fafffa;
+            border: 1.5px solid #bcddae;
+            border-radius: 1.2rem;
+            font-family: inherit;
+            color: #1f4d2a;
+            transition: all 0.2s;
+        }
+
+        .currency-input:focus {
+            outline: none;
+            border-color: #3c9e4a;
+            box-shadow: 0 0 0 3px rgba(60, 158, 74, 0.2);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #2d6a3b, #1e4a2f);
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 106, 59, 0.3);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .selected-badge {
+            background: #eaf6e8;
+            border-radius: 1.5rem;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #2c6e3b;
+        }
+
+        .amount-highlight {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #1f7133;
+        }
+
+        /* details container - clean */
+        .details-container {
+            padding: 1.8rem 2rem 2.2rem 2rem;
+            background: #ffffff;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.8rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid #d4f0d4;
+        }
+
+        .section-title h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #2b6e3c;
+        }
+
+        .section-title span {
+            background: #eef7ea;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #368a4a;
+        }
+
+        /* year grid - card layout */
+        .years-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .year-card {
+            background: #fefef8;
+            border-radius: 1.2rem;
+            padding: 1rem 0.8rem;
+            text-align: center;
+            transition: all 0.2s;
+            border: 1px solid #d0eac8;
+            box-shadow: 0 2px 8px rgba(50, 80, 30, 0.05);
+        }
+
+        .year-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: #e2f3de;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #2d7542;
+            letter-spacing: 0.3px;
+            margin-bottom: 0.75rem;
+        }
+
+        .year-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #1d5e2d;
+            margin: 0.5rem 0 0.2rem;
+            word-break: break-word;
+        }
+
+        .currency-symbol {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4f9f5a;
+            margin-right: 2px;
+        }
+
+        .year-card small {
+            display: block;
+            font-size: 0.7rem;
+            color: #6b9a6b;
+            margin-top: 0.4rem;
+        }
+
+        /* no selection state */
+        .no-selection {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: #fafff5;
+            border-radius: 1.5rem;
+            color: #54855c;
+            font-weight: 500;
+        }
+
+        /* loading animation */
+        @keyframes shimmer {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .loading {
+            animation: shimmer 0.5s ease-in-out infinite;
+        }
+
+        /* responsive */
+        @media (max-width: 600px) {
+            .years-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+            .header h1 {
+                font-size: 1.4rem;
+            }
+            .selector-area, .details-container {
+                padding: 1.2rem;
+            }
+            .year-value {
+                font-size: 1.1rem;
+            }
+            .year-card {
+                padding: 0.8rem 0.5rem;
+            }
+            .input-wrapper {
+                flex-direction: column;
+            }
+            .calculate-btn {
+                width: 100%;
+                white-space: normal;
+            }
+            .select-group {
+                min-width: 100%;
+            }
+        }
+
+        /* subtle hover effect for cards */
+        .year-card:hover {
+            transform: translateY(-3px);
+            border-color: #9fcf97;
+            box-shadow: 0 12px 18px -8px rgba(40, 80, 20, 0.12);
+            background: #ffffff;
+        }
+
+        /* info message */
+        .info-message {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 0.8rem 1rem;
+            margin-top: 1rem;
+            border-radius: 0.8rem;
+            font-size: 0.8rem;
+            color: #2e6b3e;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <h1>🌿 High Profit Plan</h1>
+        <p>Enter any investment amount to see yearly returns (LKR)</p>
+    </div>
+
+    <div class="selector-area">
+        <div class="select-wrapper">
+            <div class="select-group">
+                <label>💰 ENTER INVESTMENT AMOUNT (LKR)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="amountInput" class="currency-input" placeholder="e.g., 2500000" value="100000">
+                    <button id="calculateBtn" class="calculate-btn">Calculate Returns</button>
+                </div>
+                <div class="info-message">
+                    💡 Tip: You can enter any amount. Returns are calculated based on the nearest available rate.
+                </div>
+            </div>
+            <div class="selected-badge">
+                <span>📊 Current Investment:</span>
+                <span id="activeAmountLabel" class="amount-highlight">LKR 100,000</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="details-container" id="detailsContainer">
+        <div class="section-title">
+            <h2>📆 Yearly Earnings Breakdown</h2>
+            <span>Years 1-8</span>
+        </div>
+        <div id="dynamicYearsPanel">
+            <!-- dynamic content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    // Complete dataset from original screenshot (exact values)
+    // Each entry: [principal, year1, year2, year3, year4, year5, year6, year7, year8]
+    // All values in LKR (Sri Lankan Rupees)
+    const fullData = [
+        [100000, 2500, 3000, 3250, 3500, 4000, 4250, 4500, 4750],
+        [200000, 5000, 6000, 6500, 7000, 8000, 8500, 9000, 9500],
+        [300000, 7500, 9000, 9750, 10500, 12000, 12750, 13500, 14250],
+        [400000, 10000, 12000, 13000, 14000, 16000, 17000, 18000, 19000],
+        [500000, 12500, 15000, 16250, 17500, 20000, 21250, 22500, 23750],
+        [600000, 15000, 18000, 19500, 21000, 24000, 25500, 27000, 28500],
+        [700000, 17500, 21000, 22750, 24500, 28000, 29750, 31500, 33250],
+        [800000, 20000, 24000, 26000, 28000, 32000, 34000, 36000, 38000],
+        [900000, 22500, 27000, 29250, 31500, 36000, 38250, 40500, 42750],
+        [1000000, 25000, 30000, 32500, 35000, 40000, 42500, 45000, 47500],
+        [1500000, 37500, 45000, 48750, 52500, 60000, 63750, 67500, 71250],
+        [2000000, 50000, 60000, 65000, 70000, 80000, 85000, 90000, 95000],
+        [2500000, 62500, 75000, 81250, 87500, 100000, 106250, 112500, 118750],
+        [3000000, 75000, 90000, 97500, 105000, 120000, 127500, 135000, 142500],
+        [4000000, 100000, 120000, 130000, 140000, 160000, 170000, 180000, 190000],
+        [5000000, 125000, 150000, 162500, 175000, 200000, 212500, 225000, 237500],
+        [7500000, 187500, 225000, 243750, 262500, 300000, 318750, 337500, 356250],
+        [10000000, 250000, 300000, 325000, 350000, 400000, 425000, 450000, 475000],
+        [20000000, 500000, 600000, 650000, 700000, 800000, 850000, 900000, 950000],
+        [30000000, 750000, 900000, 975000, 1050000, 1200000, 1275000, 1350000, 1425000],
+        [40000000, 1000000, 1200000, 1300000, 1400000, 1600000, 1700000, 1800000, 1900000],
+        [50000000, 1250000, 1500000, 1625000, 1750000, 2000000, 2125000, 2250000, 2500000],
+        [60000000, 1500000, 1800000, 1950000, 2100000, 2400000, 2550000, 2700000, 3000000],
+        [70000000, 1750000, 2100000, 2275000, 2450000, 2800000, 2975000, 3150000, 3500000],
+        [80000000, 2000000, 2400000, 2600000, 2800000, 3200000, 3400000, 3600000, 4000000],
+        [90000000, 2250000, 2700000, 2925000, 3150000, 3600000, 3825000, 4050000, 4500000],
+        [100000000, 2500000, 3000000, 3250000, 3500000, 4000000, 4250000, 4500000, 5000000]
+    ];
+
+    // Format number with commas
+    function formatNumber(value) {
+        return value.toLocaleString('en-US');
+    }
+
+    // Format principal nicely with LKR indication
+    function formatPrincipal(principal) {
+        return `LKR ${principal.toLocaleString('en-US')}`;
+    }
+
+    // Get data row by principal value (exact match)
+    function getDataByPrincipal(principal) {
+        return fullData.find(item => item[0] === principal);
+    }
+
+    // Calculate returns based on nearest available data and interpolation
+    function calculateReturnsForAmount(amount) {
+        // Find the closest principal values in the dataset
+        let lowerPrincipal = null;
+        let upperPrincipal = null;
+        let lowerData = null;
+        let upperData = null;
+        
+        // Sort data by principal
+        const sortedData = [...fullData].sort((a, b) => a[0] - b[0]);
+        
+        // Find lower and upper bounds
+        for (let i = 0; i < sortedData.length; i++) {
+            if (sortedData[i][0] <= amount) {
+                lowerPrincipal = sortedData[i][0];
+                lowerData = sortedData[i];
+            }
+            if (sortedData[i][0] >= amount && upperPrincipal === null) {
+                upperPrincipal = sortedData[i][0];
+                upperData = sortedData[i];
+                break;
+            }
+        }
+        
+        // If exact match found
+        if (lowerPrincipal === amount) {
+            return {
+                principal: amount,
+                yearlyReturns: lowerData.slice(1),
+                isExact: true
+            };
+        }
+        
+        // If amount is below minimum
+        if (lowerPrincipal === null && upperPrincipal !== null) {
+            // Use the smallest available data with scaling
+            const scaleFactor = amount / upperPrincipal;
+            const scaledReturns = upperData.slice(1).map(value => Math.round(value * scaleFactor));
+            return {
+                principal: amount,
+                yearlyReturns: scaledReturns,
+                isExact: false,
+                note: "Based on scaled returns from minimum investment"
+            };
+        }
+        
+        // If amount is above maximum
+        if (upperPrincipal === null && lowerPrincipal !== null) {
+            // Use the largest available data with scaling
+            const scaleFactor = amount / lowerPrincipal;
+            const scaledReturns = lowerData.slice(1).map(value => Math.round(value * scaleFactor));
+            return {
+                principal: amount,
+                yearlyReturns: scaledReturns,
+                isExact: false,
+                note: "Based on scaled returns from maximum investment"
+            };
+        }
+        
+        // Interpolate between lower and upper values
+        if (lowerData && upperData) {
+            const ratio = (amount - lowerPrincipal) / (upperPrincipal - lowerPrincipal);
+            const interpolatedReturns = [];
+            for (let i = 1; i <= 8; i++) {
+                const lowerValue = lowerData[i];
+                const upperValue = upperData[i];
+                const interpolated = lowerValue + (upperValue - lowerValue) * ratio;
+                interpolatedReturns.push(Math.round(interpolated));
+            }
+            return {
+                principal: amount,
+                yearlyReturns: interpolatedReturns,
+                isExact: false,
+                note: "Interpolated based on nearest investment plans"
+            };
+        }
+        
+        return null;
+    }
+
+    // Render details for any amount
+    function renderForAmount(amount) {
+        const yearsPanel = document.getElementById('dynamicYearsPanel');
+        const activeLabel = document.getElementById('activeAmountLabel');
+        
+        // Validate amount
+        if (isNaN(amount) || amount <= 0) {
+            yearsPanel.innerHTML = `<div class="no-selection">⚠️ Please enter a valid positive amount (LKR)</div>`;
+            if (activeLabel) activeLabel.textContent = '—';
+            return;
+        }
+        
+        // Round to nearest integer
+        amount = Math.round(amount);
+        
+        // Get calculated returns
+        const result = calculateReturnsForAmount(amount);
+        
+        if (!result) {
+            yearsPanel.innerHTML = `<div class="no-selection">⚠️ Unable to calculate returns for this amount. Please try another value.</div>`;
+            if (activeLabel) activeLabel.textContent = formatPrincipal(amount);
+            return;
+        }
+        
+        // Update active badge
+        if (activeLabel) activeLabel.textContent = formatPrincipal(amount);
+        
+        const yearlyValues = result.yearlyReturns;
+        const years = [1, 2, 3, 4, 5, 6, 7, 8];
+        
+        // Build grid cards
+        let cardsHtml = `<div class="years-grid">`;
+        for (let i = 0; i < yearlyValues.length; i++) {
+            const yearNum = years[i];
+            const value = yearlyValues[i];
+            cardsHtml += `
+                <div class="year-card">
+                    <div class="year-label">Year ${yearNum}</div>
+                    <div class="year-value">
+                        <span class="currency-symbol">LKR</span> ${formatNumber(value)}
+                    </div>
+                    <small>interest earned</small>
+                </div>
+            `;
+        }
+        cardsHtml += `</div>`;
+        
+        // Add note if interpolated
+        if (!result.isExact) {
+            cardsHtml += `<div class="info-message" style="margin-top: 1rem;">
+                📌 ${result.note || 'Returns calculated based on nearest available investment plans'}
+            </div>`;
+        }
+        
+        yearsPanel.innerHTML = cardsHtml;
+    }
+
+    // Handle calculation with loading animation
+    function calculateAndDisplay() {
+        const inputEl = document.getElementById('amountInput');
+        const panel = document.getElementById('dynamicYearsPanel');
+        
+        let amount = parseFloat(inputEl.value);
+        
+        if (isNaN(amount)) {
+            amount = 0;
+        }
+        
+        // Show loading effect
+        if (panel) {
+            panel.style.opacity = '0.5';
+            panel.classList.add('loading');
+        }
+        
+        setTimeout(() => {
+            renderForAmount(amount);
+            if (panel) {
+                panel.style.opacity = '1';
+                panel.classList.remove('loading');
+            }
+        }, 200);
+    }
+
+    // Initialize event listeners
+    function initialize() {
+        const calculateBtn = document.getElementById('calculateBtn');
+        const amountInput = document.getElementById('amountInput');
+        
+        if (calculateBtn) {
+            calculateBtn.addEventListener('click', calculateAndDisplay);
+        }
+        
+        if (amountInput) {
+            // Allow Enter key to trigger calculation
+            amountInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    calculateAndDisplay();
+                }
+            });
+        }
+        
+        // Initial calculation with default value
+        calculateAndDisplay();
+    }
+    
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', initialize);
+</script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Serendib Investment Calculator</title>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fff4 0%, #eef5e9 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2f0da;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4ade80;
+            border-radius: 10px;
+        }
+
+        /* ========= LOADING SCREEN ========= */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffffff;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1), visibility 0.6s;
+        }
+        .loading-content {
+            text-align: center;
+            animation: gentleBounce 1.4s infinite ease-in-out;
+        }
+        .loading-content i {
+            font-size: 4.2rem;
+            color: #4ade80;
+            margin-bottom: 1rem;
+            display: inline-block;
+            filter: drop-shadow(0 8px 12px rgba(74,222,128,0.2));
+            animation: iconFloat 1s infinite alternate;
+        }
+        .loading-content h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(125deg, #2b5e2b, #6fbf4c, #2e7d32);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        @keyframes gentleBounce {
+            0%, 100% { transform: scale(0.98); opacity: 0.8; }
+            50% { transform: scale(1.02); opacity: 1; }
+        }
+        @keyframes iconFloat {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-12px); }
+        }
+
+        /* ========= MAIN APP ========= */
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1.8rem;
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.2), transform 0.7s ease;
+        }
+        .app-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header minimal */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .brand-header h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            background: linear-gradient(130deg, #1f4f1a, #4caf50, #7ec850);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .brand-header h1 i {
+            background: none;
+            -webkit-background-clip: unset;
+            color: #4caf50;
+            font-size: 2rem;
+        }
+
+        /* 4 sections grid - only cards with icons and titles */
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* modern cards - clean, no calculation elements */
+        .plan-card {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(0px);
+            border-radius: 2rem;
+            padding: 2.5rem 1.5rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(74, 222, 128, 0.2);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #4ade80, #86efac, #4ade80);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+        .plan-card:hover::before {
+            transform: scaleX(1);
+        }
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 40px -16px rgba(74, 222, 128, 0.4);
+            border-color: #86efac;
+        }
+
+        /* icon section - prominent */
+        .icon-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+        .plan-icon-bg {
+            background: #efffeb;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+            box-shadow: 0 12px 20px rgba(74,222,128,0.2);
+        }
+        .plan-card:hover .plan-icon-bg {
+            transform: scale(1.08) rotate(2deg);
+            background: #e2fcdb;
+            box-shadow: 0 18px 28px rgba(74,222,128,0.3);
+        }
+        .plan-icon-bg i {
+            font-size: 3.5rem;
+            transition: transform 0.3s;
+        }
+        .plan-card:hover .plan-icon-bg i {
+            transform: scale(1.05);
+        }
+
+        .plan-title {
+            text-align: center;
+            font-size: 1.7rem;
+            font-weight: 700;
+            margin-top: 1rem;
+            color: #1f3b1a;
+            letter-spacing: -0.3px;
+            position: relative;
+        }
+
+        /* subtle glow effect on title */
+        .plan-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: #4ade80;
+            border-radius: 3px;
+            opacity: 0;
+            transition: opacity 0.3s ease, width 0.3s ease;
+        }
+        .plan-card:hover .plan-title::after {
+            opacity: 1;
+            width: 60px;
+        }
+
+        /* minimal footer */
+        .minimal-footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.7rem;
+            color: #7fa06b;
+            opacity: 0.7;
+            letter-spacing: 0.5px;
+        }
+
+        /* responsive design */
+        @media (max-width: 1100px) {
+            .plans-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.8rem;
+            }
+            .app-container {
+                padding: 1.8rem;
+            }
+            .plan-icon-bg {
+                width: 85px;
+                height: 85px;
+            }
+            .plan-icon-bg i {
+                font-size: 3rem;
+            }
+            .plan-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 650px) {
+            .plans-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .plan-card {
+                padding: 2rem 1.5rem;
+            }
+            .plan-icon-bg {
+                width: 90px;
+                height: 90px;
+            }
+            .plan-title {
+                font-size: 1.6rem;
+            }
+            .brand-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* page transition animation */
+        .fade-transition {
+            animation: pageReveal 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+        @keyframes pageReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* additional interactive pulse on cards (optional) */
+        @keyframes cardPulse {
+            0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(74, 222, 128, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+        }
+        .plan-card:active {
+            animation: cardPulse 0.4s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app-root"></div>
+
+<script>
+    (function() {
+        // ========== FOUR SECTIONS DATA: Only icons, titles, and styling ==========
+        // No calculations, no inputs, no ROI, no results - pure visual sections
+        const PLANS_DATA = [
+            {
+                name: 'High Profit Plan',
+                icon: 'fas fa-chart-line',
+                iconColor: '#f59e0b',
+                bgColor: '#fff3e6'
+            },
+            {
+                name: 'Green Saving Plan',
+                icon: 'fas fa-leaf',
+                iconColor: '#4caf50',
+                bgColor: '#e9f7e5'
+            },
+            {
+                name: 'Silver Plan',
+                icon: 'fas fa-coins',
+                iconColor: '#94a3b8',
+                bgColor: '#f1f5f3'
+            },
+            {
+                name: 'Gold Plan',
+                icon: 'fas fa-crown',
+                iconColor: '#eab308',
+                bgColor: '#fffae6'
+            }
+        ];
+
+        // ========== RENDER ONLY FOUR SECTIONS - NO CALCULATION DETAILS ==========
+        function renderFourSections() {
+            const cardsHTML = PLANS_DATA.map(plan => {
+                return `
+                    <div class="plan-card" data-plan="${plan.name}">
+                        <div class="icon-wrapper">
+                            <div class="plan-icon-bg" style="background: ${plan.bgColor};">
+                                <i class="${plan.icon}" style="color: ${plan.iconColor};"></i>
+                            </div>
+                        </div>
+                        <div class="plan-title">${plan.name}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            const mainHTML = `
+                <div class="app-container" id="appContainer">
+                    <div class="brand-header">
+                        <h1><i class="fas fa-seedling"></i> Serendib Investment Calculator</h1>
+                    </div>
+                    <div class="plans-grid">
+                        ${cardsHTML}
+                    </div>
+                    <div class="minimal-footer">
+                        <i class="fas fa-chart-simple"></i> Explore our investment plans
+                    </div>
+                </div>
+            `;
+            
+            const root = document.getElementById('app-root');
+            root.innerHTML = mainHTML;
+            
+            // Add entrance animation to app container
+            const container = document.getElementById('appContainer');
+            if (container) {
+                setTimeout(() => {
+                    container.classList.add('visible');
+                    container.classList.add('fade-transition');
+                }, 80);
+            }
+            
+            // Optional: Add click handler for interactive feedback (just for modern feel)
+            const cards = document.querySelectorAll('.plan-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Subtle haptic feedback - just animation, no calculation
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        if (this) this.style.transform = '';
+                    }, 150);
+                });
+            });
+        }
+
+        // ========== LOADING SCREEN FOR FIRST ENTRY ==========
+        function showInitialLoading() {
+            // Create fullscreen loading overlay with Serendib branding
+            const loaderDiv = document.createElement('div');
+            loaderDiv.className = 'loading-overlay';
+            loaderDiv.id = 'initialLoader';
+            loaderDiv.innerHTML = `
+                <div class="loading-content">
+                    <i class="fas fa-chart-pie"></i>
+                    <h2>Serendib Investment Calculator</h2>
+                    <div style="margin-top: 1.2rem;">
+                        <i class="fas fa-spinner fa-pulse fa-2x" style="color:#4ade80;"></i>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(loaderDiv);
+            
+            // After 1.6 seconds, remove loader with smooth transition and show main app
+            setTimeout(() => {
+                const loader = document.getElementById('initialLoader');
+                if (loader) {
+                    loader.style.opacity = '0';
+                    loader.style.visibility = 'hidden';
+                    setTimeout(() => {
+                        if (loader && loader.remove) loader.remove();
+                        renderFourSections();
+                    }, 500);
+                }
+            }, 1600);
+        }
+        
+        // ========== ADDITIONAL: Loading screen for "every page" concept ==========
+        // Since this is a single-page app with no navigation, we ensure any theoretical
+        // "page" transition is handled. For completeness, we add a function to simulate
+        // page refresh with loading screen if needed (but we also want eye-catching transitions)
+        // The requirement says "add loading screen for every page" - we have initial loading,
+        // and to be extra compliant, we can add a subtle loading overlay when the user 
+        // clicks on any card? No, better to show that the app is modern and we can
+        // add a "refresh" concept? But we'll also add a nice transition on window focus.
+        // For ultimate user experience, we add a resize/visibility observer that doesn't break anything.
+        // Also to simulate "page" loading transitions, we can add an elegant re-animation when 
+        // the page becomes visible again (after tab switch) - adds modern touch.
+        
+        function addPageTransitionOnVisibility() {
+            let wasHidden = false;
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible' && wasHidden) {
+                    const container = document.getElementById('appContainer');
+                    if (container) {
+                        container.style.animation = 'none';
+                        container.offsetHeight; // reflow
+                        container.style.animation = 'pageReveal 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards';
+                        setTimeout(() => {
+                            if (container) container.style.animation = '';
+                        }, 500);
+                    }
+                }
+                wasHidden = document.visibilityState === 'hidden';
+            });
+        }
+        
+        // start the experience with loading screen
+        showInitialLoading();
+        
+        // add extra eye-catching transitions for modern feel
+        setTimeout(() => {
+            addPageTransitionOnVisibility();
+        }, 2000);
+        
+        // Also ensure smooth hover interactions remain crisp
+        // Add subtle background gradient animation on body for extra modern look
+        let gradientPos = 0;
+        setInterval(() => {
+            gradientPos = (gradientPos + 0.5) % 100;
+            document.body.style.background = `linear-gradient(135deg, #f8fff4 ${gradientPos}%, #eef5e9 ${gradientPos + 20}%)`;
+        }, 8000);
+        
+        // add additional sparkle on card load (modern micro-interaction)
+        const style = document.createElement('style');
+        style.textContent = `
+            .plan-card {
+                animation: cardGlowIn 0.5s ease-out backwards;
+                animation-delay: calc(var(--order, 0) * 0.1s);
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // apply staggered animation after render (dynamic)
+        const observeRender = new MutationObserver((mutations) => {
+            mutations.forEach(() => {
+                const cards = document.querySelectorAll('.plan-card');
+                cards.forEach((card, idx) => {
+                    card.style.setProperty('--order', idx);
+                    card.style.animation = 'cardGlowIn 0.5s ease-out backwards';
+                    card.style.animationDelay = `${idx * 0.08}s`;
+                });
+            });
+            observeRender.disconnect();
+        });
+        
+        observeRender.observe(document.body, { childList: true, subtree: true });
+        
+        // add keyframe for card entrance
+        const keyframeStyle = document.createElement('style');
+        keyframeStyle.textContent = `
+            @keyframes cardGlowIn {
+                0% {
+                    opacity: 0;
+                    transform: translateY(30px) scale(0.96);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(keyframeStyle);
+    })();
+</script>
+</body>
+</html>
