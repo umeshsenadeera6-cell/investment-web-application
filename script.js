@@ -190,6 +190,24 @@
             if (e.key === 'Enter') validateAndLogin();
         });
         
+        // Alphanumeric restriction & Auto-uppercase
+        loginInput.addEventListener('input', (e) => {
+            const start = e.target.selectionStart;
+            const end = e.target.selectionEnd;
+            let val = e.target.value;
+            
+            // Remove non-alphanumeric, convert to uppercase
+            const cleanVal = val.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+            
+            if (val !== cleanVal) {
+                e.target.value = cleanVal;
+                // Maintain cursor position if possible
+                e.target.setSelectionRange(start, end);
+            } else {
+                e.target.value = cleanVal;
+            }
+        });
+
         // Auto-focus input for convenience
         setTimeout(() => loginInput.focus(), 100);
     }
