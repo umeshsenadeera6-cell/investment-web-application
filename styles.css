@@ -566,10 +566,17 @@ body {
 }
 
 .login-icon {
-    font-size: 3.5rem;
-    color: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-bottom: 1.5rem;
     animation: iconBounce 2s infinite ease-in-out;
+}
+
+.login-logo {
+    width: 160px;
+    height: auto;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.08));
 }
 
 @keyframes iconBounce {
