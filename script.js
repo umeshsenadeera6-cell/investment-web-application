@@ -47,7 +47,7 @@
         const mainHTML = `
             <div class="app-container" id="appContainer">
                 <div class="brand-header">
-                    <h1><i class="fas fa-seedling"></i> Serendib Investment Calculator</h1>
+                    <h1><img src="images/logo.png" alt="Logo" class="main-logo"> Serendib Investment Calculator</h1>
                 </div>
                 <div class="plans-grid">
                     ${cardsHTML}
@@ -194,7 +194,27 @@
         setTimeout(() => loginInput.focus(), 100);
     }
 
+    function startLoadingProgress() {
+        const progressBar = document.getElementById('loadingProgressBar');
+        if (!progressBar) return;
+        
+        let progress = 0;
+        const duration = 1500; // Match loading timeout
+        const interval = 30;
+        const increment = (100 / (duration / interval));
+        
+        const loader = setInterval(() => {
+            progress += increment + (Math.random() * 2);
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(loader);
+            }
+            progressBar.style.width = progress + '%';
+        }, interval);
+    }
+
     // start the experience with loading screen
+    startLoadingProgress();
     setTimeout(() => {
         const loadingOverlay = document.getElementById('loadingOverlay');
         if (loadingOverlay) {
