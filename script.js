@@ -68,7 +68,7 @@
                 container.classList.add('visible');
                 container.classList.add('fade-transition');
             }
-        }, 1880);
+        }, 100);
         
         // Add click handler for plan cards
         const cards = document.querySelectorAll('.plan-card');
@@ -159,13 +159,20 @@
                 errorMsg.classList.remove('visible');
                 loginInput.classList.remove('shake');
                 
-                // Transition out
-                loginOverlay.style.opacity = '0';
+                // Transition out with cinematic animation
+                const loginCard = document.querySelector('.login-card');
+                if (loginCard) loginCard.classList.add('success-anim');
+                
                 setTimeout(() => {
-                    loginOverlay.style.display = 'none';
-                    renderFourSections();
-                    addPageTransitionOnVisibility();
-                }, 500);
+                    loginOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        loginOverlay.style.display = 'none';
+                        renderFourSections();
+                        const container = document.getElementById('appContainer');
+                        if (container) container.classList.add('zoom-in-reveal');
+                        addPageTransitionOnVisibility();
+                    }, 400); 
+                }, 300);
             } else {
                 // Failure
                 errorMsg.classList.add('visible');
