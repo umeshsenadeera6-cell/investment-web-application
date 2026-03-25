@@ -227,6 +227,7 @@ body {
 .brand-header h1 i {
     background: none;
     -webkit-background-clip: unset;
+    background-clip: unset;
     color: #4caf50;
     font-size: 2rem;
 }
