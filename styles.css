@@ -418,198 +418,7 @@ body::after {
     font-size: 1rem;
 }
 
-/* PORTFOLIO CALCULATOR WIDGET */
-.portfolio-planner-card {
-    background: rgba(13, 22, 45, 0.55);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--card-border);
-    border-radius: 24px;
-    padding: 2.5rem;
-    margin-bottom: 3rem;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-    position: relative;
-    overflow: hidden;
-}
 
-.portfolio-planner-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--primary));
-}
-
-.planner-header {
-    margin-bottom: 2rem;
-}
-
-.planner-title {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.45rem;
-    font-weight: 700;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.planner-title i {
-    color: var(--primary);
-}
-
-.planner-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    margin-top: 0.3rem;
-}
-
-/* Calculator Bloomberg-style Inputs */
-.calculator-input-row {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-}
-
-.input-container-block {
-    flex: 1;
-    min-width: 320px;
-}
-
-.input-label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.8rem;
-}
-
-.input-label-row label {
-    font-size: 0.85rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--text-muted);
-}
-
-.active-amount-pill {
-    background: rgba(16, 185, 129, 0.12);
-    color: var(--text-emerald);
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    border: 1px solid rgba(16, 185, 129, 0.25);
-}
-
-.terminal-input-wrapper {
-    display: flex;
-    align-items: center;
-    background: rgba(4, 7, 16, 0.65);
-    border: 1.5px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 0.4rem 1.2rem;
-    transition: all 0.3s ease;
-}
-
-.terminal-input-wrapper:focus-within {
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
-}
-
-.currency-tag {
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: var(--primary);
-    margin-right: 12px;
-}
-
-.terminal-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    font-size: 1.5rem;
-    font-weight: 800;
-    outline: none;
-    font-family: 'Outfit', sans-serif;
-    letter-spacing: 0.5px;
-}
-
-/* Slider Controls */
-.slider-control-block {
-    flex: 1;
-    min-width: 320px;
-}
-
-.slider-container {
-    margin-top: 1rem;
-}
-
-.custom-range-slider {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 6px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.08);
-    outline: none;
-    transition: background 0.3s ease;
-}
-
-.custom-range-slider::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 6px;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-.custom-range-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: var(--primary);
-    cursor: pointer;
-    border: 3px solid #060913;
-    box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
-    margin-top: -8px;
-    transition: transform 0.1s, background-color 0.2s;
-}
-
-.custom-range-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.18);
-    background: var(--primary-hover);
-}
-
-/* Slider preset pills */
-.presets-grid {
-    display: flex;
-    gap: 10px;
-    margin-top: 1.2rem;
-    flex-wrap: wrap;
-}
-
-.preset-pill {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: var(--text-muted);
-    padding: 0.4rem 1rem;
-    border-radius: 10px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.preset-pill:hover {
-    background: rgba(16, 185, 129, 0.1);
-    border-color: var(--primary);
-    color: #ffffff;
-}
 
 /* ========= 4 SECTIONS / PLANS GRID ========= */
 .plans-grid {
@@ -634,7 +443,7 @@ body::after {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    min-height: 380px;
+    min-height: 220px;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
 }
@@ -750,52 +559,7 @@ body::after {
     margin-top: 0.3rem;
 }
 
-/* LIVE RETURN METRICS SECTION */
-.live-metric-section {
-    margin: auto 0;
-    padding: 1.2rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
 
-.live-metric-label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--text-muted);
-    margin-bottom: 0.4rem;
-}
-
-.live-metric-value {
-    font-family: 'Outfit', sans-serif;
-    font-size: 2.1rem;
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.1;
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-    letter-spacing: -0.5px;
-    transition: transform 0.15s ease-out;
-}
-
-.metric-currency {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--primary);
-}
-
-/* Plan growth tag styling */
-.plan-growth-metric {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-emerald);
-    margin-top: 0.6rem;
-}
 
 /* Action button inside card */
 .card-action-bar {
@@ -867,10 +631,7 @@ body::after {
     }
     .plan-card {
         padding: 2.2rem 1.8rem;
-        min-height: 360px;
-    }
-    .live-metric-value {
-        font-size: 1.8rem;
+        min-height: 200px;
     }
 }
 
@@ -891,9 +652,6 @@ body::after {
         width: 100%;
         justify-content: center;
     }
-    .portfolio-planner-card {
-        padding: 1.8rem 1.5rem;
-    }
     .plans-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -913,18 +671,5 @@ body::after {
     }
     .main-logo {
         height: 44px;
-    }
-    .terminal-input {
-        font-size: 1.3rem;
-    }
-    .live-metric-value {
-        font-size: 1.6rem;
-    }
-    .presets-grid {
-        gap: 6px;
-    }
-    .preset-pill {
-        padding: 0.35rem 0.8rem;
-        font-size: 0.7rem;
     }
 }
