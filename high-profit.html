@@ -6,6 +6,12 @@
     <title>High Profit Plan - Serendib Investment</title>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('serendib_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
     <style>
         * {
             margin: 0;
@@ -428,6 +434,205 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(45, 106, 59, 0.2);
         }
+
+        /* ========= THEME SWITCH TOGGLE & DARK MODE OVERRIDES ========= */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .theme-toggle-wrapper {
+            cursor: pointer;
+            user-select: none;
+            margin-left: auto;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .theme-toggle-track {
+            width: 60px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .theme-toggle-track i {
+            font-size: 14px;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .sun-icon {
+            color: #fbbf24;
+            opacity: 0.9;
+        }
+
+        .moon-icon {
+            color: #9ca3af;
+            opacity: 0.3;
+        }
+
+        .theme-toggle-thumb {
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #2d6a3b, #1e4a2f);
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 5px rgba(45, 106, 59, 0.2);
+        }
+
+        /* Dark Mode Overrides */
+        [data-theme="dark"] body {
+            background: linear-gradient(135deg, #090f0c 0%, #0d1a12 100%);
+            color: #e2f0e6;
+        }
+
+        [data-theme="dark"] .card {
+            background: rgba(13, 20, 17, 0.75);
+            border-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 30px 50px -20px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="dark"] .header {
+            background: linear-gradient(120deg, #0f2b1a, #163d21);
+        }
+
+        [data-theme="dark"] .selector-area,
+        [data-theme="dark"] .details-container {
+            background: rgba(13, 20, 17, 0.45);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        [data-theme="dark"] .currency-input {
+            background-color: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #e2f0e6;
+        }
+
+        [data-theme="dark"] .currency-input:focus {
+            border-color: #2d6a3b;
+            box-shadow: 0 0 0 3px rgba(45, 106, 59, 0.25);
+        }
+
+        [data-theme="dark"] .selected-badge {
+            background: rgba(45, 106, 59, 0.15);
+            color: #4caf50;
+        }
+
+        [data-theme="dark"] .amount-highlight {
+            color: #69db7c;
+        }
+
+        [data-theme="dark"] .section-title {
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        [data-theme="dark"] .section-title h2 {
+            color: #69db7c;
+        }
+
+        [data-theme="dark"] .section-title span {
+            background: rgba(45, 106, 59, 0.15);
+            color: #69db7c;
+        }
+
+        [data-theme="dark"] .year-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="dark"] .year-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #4caf50;
+        }
+
+        [data-theme="dark"] .year-label {
+            background: rgba(45, 106, 59, 0.2);
+            color: #69db7c;
+        }
+
+        [data-theme="dark"] .year-value {
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .currency-symbol {
+            color: #4caf50;
+        }
+
+        [data-theme="dark"] .year-card small {
+            color: #8fbf9f;
+        }
+
+        [data-theme="dark"] .info-message {
+            background: rgba(45, 106, 59, 0.12);
+            border-color: #4caf50;
+            color: #a3e635;
+        }
+
+        [data-theme="dark"] .no-selection {
+            background: rgba(255, 255, 255, 0.02);
+            color: #8fbf9f;
+        }
+
+        [data-theme="dark"] .loading-overlay {
+            background: linear-gradient(135deg, #090f0c 0%, #0d1a12 100%);
+        }
+
+        [data-theme="dark"] .loading-content i {
+            color: #4caf50;
+        }
+
+        [data-theme="dark"] .loading-content h2 {
+            background: linear-gradient(125deg, #e2f0e6, #4caf50);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        [data-theme="dark"] .back-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: #2d6a3b;
+            color: #4caf50;
+        }
+
+        [data-theme="dark"] .back-btn:hover {
+            background: #2d6a3b;
+            color: white;
+        }
+
+        /* Dark Mode Overrides for Toggle */
+        [data-theme="dark"] .theme-toggle-track {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="dark"] .sun-icon {
+            opacity: 0.5;
+        }
+
+        [data-theme="dark"] .moon-icon {
+            opacity: 0.9;
+            color: #a5b4fc;
+        }
+
+        [data-theme="dark"] .theme-toggle-thumb {
+            left: 33px; /* Slide to right in Dark Mode */
+            background: linear-gradient(135deg, #4caf50, #2d6a3b);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -448,6 +653,13 @@
         <a href="index.html" class="home-btn">
             <i class="fas fa-home"></i> Return to Home
         </a>
+        <div class="theme-toggle-wrapper" id="themeToggleBtn" title="Toggle Dark/Light Mode">
+            <div class="theme-toggle-track">
+                <i class="fas fa-sun sun-icon"></i>
+                <i class="fas fa-moon moon-icon"></i>
+                <div class="theme-toggle-thumb"></div>
+            </div>
+        </div>
     </div>
 
     <div class="card">
@@ -722,7 +934,20 @@
     }
     
     // Initialize when DOM is ready
-    document.addEventListener('DOMContentLoaded', initialize);
+    document.addEventListener('DOMContentLoaded', () => {
+        initialize();
+        
+        // Theme toggle logic
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', function () {
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('serendib_theme', newTheme);
+            });
+        }
+    });
 
     // Hide loading screen
     setTimeout(() => {

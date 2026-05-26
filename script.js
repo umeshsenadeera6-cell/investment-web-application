@@ -63,9 +63,18 @@
                         <img src="images/logo.png" alt="Logo" class="main-logo">
                         <h1>Serendib Green Plantation</h1>
                     </div>
-                    <div class="client-session-card">
-                        <i class="fas fa-user-shield"></i>
-                        <span>🔑 Verified SGS Partner Session</span>
+                    <div class="header-controls">
+                        <div class="theme-toggle-wrapper" id="themeToggleBtn" title="Toggle Dark/Light Mode">
+                            <div class="theme-toggle-track">
+                                <i class="fas fa-sun sun-icon"></i>
+                                <i class="fas fa-moon moon-icon"></i>
+                                <div class="theme-toggle-thumb"></div>
+                            </div>
+                        </div>
+                        <div class="client-session-card">
+                            <i class="fas fa-user-shield"></i>
+                            <span>🔑 Verified SGS Partner Session</span>
+                        </div>
                     </div>
                 </div>
 
@@ -89,6 +98,17 @@
                 container.classList.add('fade-transition');
             }
         }, 100);
+
+        // Theme toggle logic
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        if (themeToggleBtn) {
+            themeToggleBtn.addEventListener('click', function () {
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('serendib_theme', newTheme);
+            });
+        }
 
         // Click routing for plan details
         const cards = document.querySelectorAll('.plan-card');

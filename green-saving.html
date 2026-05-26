@@ -10,6 +10,12 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('serendib_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
     <style>
         :root {
             --primary: #10b981;
@@ -473,6 +479,191 @@
                 padding: 20px;
             }
         }
+
+        /* ========= THEME SWITCH TOGGLE & DARK MODE OVERRIDES ========= */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .theme-toggle-wrapper {
+            cursor: pointer;
+            user-select: none;
+            margin-left: auto;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .theme-toggle-track {
+            width: 60px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .theme-toggle-track i {
+            font-size: 14px;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .sun-icon {
+            color: #fbbf24;
+            opacity: 0.9;
+        }
+
+        .moon-icon {
+            color: #9ca3af;
+            opacity: 0.3;
+        }
+
+        .theme-toggle-thumb {
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 5px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Dark Mode Overrides */
+        [data-theme="dark"] body {
+            background: linear-gradient(135deg, #060913 0%, #0d1425 100%);
+            color: #f3f4f6;
+        }
+
+        [data-theme="dark"] .header-section h1 {
+            color: #a7f3d0;
+        }
+
+        [data-theme="dark"] .text-muted {
+            color: #9ca3af !important;
+        }
+
+        [data-theme="dark"] .card {
+            background: rgba(13, 20, 37, 0.7) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            color: #f3f4f6;
+        }
+
+        [data-theme="dark"] .card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        [data-theme="dark"] .form-select {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #f3f4f6;
+        }
+
+        [data-theme="dark"] .form-select:focus {
+            border-color: var(--primary);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .form-select option {
+            background-color: #0d1425;
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .p-3.bg-light {
+            background: rgba(255, 255, 255, 0.02) !important;
+            border: 1px solid rgba(255, 255, 255, 0.07) !important;
+        }
+
+        [data-theme="dark"] .p-3.bg-light:hover {
+            background: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        [data-theme="dark"] .small.text-muted {
+            color: #9ca3af !important;
+        }
+
+        [data-theme="dark"] .fw-bold {
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .text-success {
+            color: #34d399 !important;
+        }
+
+        [data-theme="dark"] .text-primary {
+            color: #60a5fa !important;
+        }
+
+        [data-theme="dark"] .table {
+            color: #f3f4f6 !important;
+        }
+
+        [data-theme="dark"] .table-light {
+            background-color: rgba(255, 255, 255, 0.04) !important;
+        }
+
+        [data-theme="dark"] .table th {
+            color: #a7f3d0;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        [data-theme="dark"] .table td {
+            color: #e5e7eb;
+        }
+
+        [data-theme="dark"] .alert-success {
+            background-color: rgba(16, 185, 129, 0.1) !important;
+            border-color: rgba(16, 185, 129, 0.3) !important;
+            color: #a7f3d0 !important;
+        }
+
+        [data-theme="dark"] .loading-overlay {
+            background: linear-gradient(135deg, #060913 0%, #0d1425 100%);
+        }
+
+        [data-theme="dark"] .back-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        [data-theme="dark"] .back-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Dark Mode Overrides for Toggle */
+        [data-theme="dark"] .theme-toggle-track {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="dark"] .sun-icon {
+            opacity: 0.5;
+        }
+
+        [data-theme="dark"] .moon-icon {
+            opacity: 0.9;
+            color: #a5b4fc;
+        }
+
+        [data-theme="dark"] .theme-toggle-thumb {
+            left: 33px; /* Slide to right in Dark Mode */
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -493,6 +684,13 @@
         <a href="index.html" class="home-btn">
             <i class="fas fa-home"></i> Return to Home
         </a>
+        <div class="theme-toggle-wrapper" id="themeToggleBtn" title="Toggle Dark/Light Mode">
+            <div class="theme-toggle-track">
+                <i class="fas fa-sun sun-icon"></i>
+                <i class="fas fa-moon moon-icon"></i>
+                <div class="theme-toggle-thumb"></div>
+            </div>
+        </div>
     </div>
 
     <div class="header-section">
@@ -732,6 +930,17 @@
     attachPlan("premium1","details1","1",PLANS.plan1);
     attachPlan("premium2","details2","2",PLANS.plan2);
     attachPlan("premium3","details3","3",PLANS.plan3);
+
+    // Theme toggle logic
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function () {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('serendib_theme', newTheme);
+        });
+    }
 
     // Hide loading screen
     setTimeout(() => {
