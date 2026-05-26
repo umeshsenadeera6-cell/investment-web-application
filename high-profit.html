@@ -271,12 +271,43 @@
 
         /* responsive */
         @media (max-width: 600px) {
-            .years-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.8rem;
+            .nav-actions {
+                justify-content: center;
+                gap: 10px;
+                margin-bottom: 1.5rem;
+            }
+            .theme-toggle-wrapper {
+                margin-left: 0;
+            }
+            .header {
+                text-align: center;
+                padding: 1.8rem 1rem 1.5rem 1rem;
             }
             .header h1 {
                 font-size: 1.4rem;
+                justify-content: center;
+            }
+            .select-wrapper {
+                justify-content: center;
+                text-align: center;
+                gap: 1rem;
+            }
+            .select-group label {
+                text-align: center;
+            }
+            .info-message {
+                text-align: center;
+            }
+            .selected-badge {
+                margin: 0 auto;
+            }
+            .section-title {
+                justify-content: center;
+                text-align: center;
+            }
+            .years-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
             }
             .selector-area, .details-container {
                 padding: 1.2rem;
