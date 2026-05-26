@@ -159,6 +159,9 @@
                 errorMsg.classList.remove('visible');
                 loginInput.classList.remove('shake');
 
+                // Save authentication state
+                sessionStorage.setItem('serendib_auth', 'true');
+
                 // Transition out with cinematic animation
                 const loginCard = document.querySelector('.login-card');
                 if (loginCard) loginCard.classList.add('success-anim');
@@ -239,8 +242,15 @@
             loadingOverlay.classList.add('hidden');
         }
 
-        // Instead of direct render, show login
-        initLogin();
+        // Check authentication state
+        if (sessionStorage.getItem('serendib_auth') === 'true') {
+            renderFourSections();
+            const container = document.getElementById('appContainer');
+            if (container) container.classList.add('zoom-in-reveal');
+            addPageTransitionOnVisibility();
+        } else {
+            initLogin();
+        }
     }, 1500);
 
     // remove direct visibility call if any

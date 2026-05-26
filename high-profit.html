@@ -21,6 +21,14 @@
             padding: 2rem 1rem;
         }
 
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
         /* main card - green theme */
         .card {
             max-width: 1200px;
@@ -281,6 +289,11 @@
             .select-group {
                 min-width: 100%;
             }
+            .back-btn, .home-btn {
+                padding: 10px 14px;
+                font-size: 12px;
+                border-radius: 8px;
+            }
         }
 
         /* subtle hover effect for cards */
@@ -301,10 +314,66 @@
             font-size: 0.8rem;
             color: #2e6b3e;
         }
+
+        /* Navigation Actions */
+        .nav-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .back-btn, .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            background: #f4faf4;
+            border: 2px solid #2d6a3b;
+            color: #2d6a3b;
+        }
+
+        .back-btn:hover {
+            background: #2d6a3b;
+            color: white;
+            transform: translateX(-4px);
+        }
+
+        .home-btn {
+            background: #2d6a3b;
+            border: 2px solid #2d6a3b;
+            color: white;
+        }
+
+        .home-btn:hover {
+            background: #1e4a2f;
+            border-color: #1e4a2f;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 106, 59, 0.2);
+        }
     </style>
 </head>
 <body>
-<div class="card">
+<div class="container">
+    <div class="nav-actions">
+        <a href="javascript:history.back()" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Plans
+        </a>
+        <a href="index.html" class="home-btn">
+            <i class="fas fa-home"></i> Return to Home
+        </a>
+    </div>
+
+    <div class="card">
     <div class="header">
         <h1>🌿 High Profit Plan</h1>
         <p>Enter any investment amount to see yearly returns (LKR)</p>
@@ -338,6 +407,7 @@
             <!-- dynamic content will be loaded here -->
         </div>
     </div>
+</div>
 </div>
 
 <script>
