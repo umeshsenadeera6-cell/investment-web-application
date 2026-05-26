@@ -1,4 +1,4 @@
-(function() {
+(function () {
     // ========== FOUR SECTIONS DATA: Only icons, titles, and styling ==========
     // No calculations, no inputs, no ROI, no results - pure visual sections
     const PLANS_DATA = [
@@ -43,7 +43,7 @@
                 </div>
             `;
         }).join('');
-        
+
         const mainHTML = `
             <div class="app-container" id="appContainer">
                 <div class="brand-header">
@@ -57,10 +57,10 @@
                 </div>
             </div>
         `;
-        
+
         const root = document.getElementById('app-root');
         root.innerHTML = mainHTML;
-        
+
         // Add entrance animation to app container
         setTimeout(() => {
             const container = document.getElementById('appContainer');
@@ -69,13 +69,13 @@
                 container.classList.add('fade-transition');
             }
         }, 100);
-        
+
         // Add click handler for plan cards
         const cards = document.querySelectorAll('.plan-card');
         cards.forEach(card => {
-            card.addEventListener('click', function(e) {
+            card.addEventListener('click', function (e) {
                 const planName = this.getAttribute('data-plan');
-                
+
                 // Navigate to plan pages
                 if (planName === 'High Profit Plan') {
                     window.location.href = 'high-profit.html';
@@ -86,7 +86,7 @@
                 } else if (planName === 'Gold Plan') {
                     window.location.href = 'gold-plan.html';
                 }
-                
+
                 // Subtle haptic feedback - just animation
                 this.style.transform = 'scale(0.98)';
                 setTimeout(() => {
@@ -97,7 +97,7 @@
     }
 
     // ========== DIRECT RENDER - NO LOADING SCREEN ==========
-    
+
     // ========== ADDITIONAL: Loading screen for "every page" concept ==========
     // Since this is a single-page app with no navigation, we ensure any theoretical
     // "page" transition is handled. For completeness, we add a function to simulate
@@ -109,7 +109,7 @@
     // For ultimate user experience, we add a resize/visibility observer that doesn't break anything.
     // Also to simulate "page" loading transitions, we can add an elegant re-animation when 
     // the page becomes visible again (after tab switch) - adds modern touch.
-    
+
     function addPageTransitionOnVisibility() {
         let wasHidden = false;
         document.addEventListener('visibilitychange', () => {
@@ -127,7 +127,7 @@
             wasHidden = document.visibilityState === 'hidden';
         });
     }
-    
+
     // ========== LOGIN LOGIC ==========
     function initLogin() {
         const loginOverlay = document.getElementById('loginOverlay');
@@ -142,8 +142,8 @@
 
         function validateAndLogin() {
             const code = loginInput.value.trim().toUpperCase();
-            
-            // Validation: Range SGS0001 - SGS0500
+
+            // Validation: Range SGS0001 - SGS0700
             const isValidFormat = /^SGS\d{4}$/.test(code);
             let isValidRange = false;
 
@@ -158,11 +158,11 @@
                 // Success
                 errorMsg.classList.remove('visible');
                 loginInput.classList.remove('shake');
-                
+
                 // Transition out with cinematic animation
                 const loginCard = document.querySelector('.login-card');
                 if (loginCard) loginCard.classList.add('success-anim');
-                
+
                 setTimeout(() => {
                     loginOverlay.style.opacity = '0';
                     setTimeout(() => {
@@ -171,13 +171,13 @@
                         const container = document.getElementById('appContainer');
                         if (container) container.classList.add('zoom-in-reveal');
                         addPageTransitionOnVisibility();
-                    }, 400); 
+                    }, 400);
                 }, 300);
             } else {
                 // Failure
                 errorMsg.classList.add('visible');
                 loginInput.classList.add('shake');
-                
+
                 // Remove shake after animation
                 setTimeout(() => {
                     loginInput.classList.remove('shake');
@@ -189,16 +189,16 @@
         loginInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') validateAndLogin();
         });
-        
+
         // Alphanumeric restriction & Auto-uppercase
         loginInput.addEventListener('input', (e) => {
             const start = e.target.selectionStart;
             const end = e.target.selectionEnd;
             let val = e.target.value;
-            
+
             // Remove non-alphanumeric, convert to uppercase
             const cleanVal = val.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
-            
+
             if (val !== cleanVal) {
                 e.target.value = cleanVal;
                 // Maintain cursor position if possible
@@ -215,12 +215,12 @@
     function startLoadingProgress() {
         const progressBar = document.getElementById('loadingProgressBar');
         if (!progressBar) return;
-        
+
         let progress = 0;
         const duration = 1500; // Match loading timeout
         const interval = 30;
         const increment = (100 / (duration / interval));
-        
+
         const loader = setInterval(() => {
             progress += increment + (Math.random() * 2);
             if (progress >= 100) {
@@ -238,13 +238,13 @@
         if (loadingOverlay) {
             loadingOverlay.classList.add('hidden');
         }
-        
+
         // Instead of direct render, show login
         initLogin();
     }, 1500);
-    
+
     // remove direct visibility call if any
-    
+
     // Also ensure smooth hover interactions remain crisp
     // Add subtle background gradient animation on body for extra modern look
     let gradientPos = 0;
@@ -252,7 +252,7 @@
         gradientPos = (gradientPos + 0.5) % 100;
         document.body.style.background = `linear-gradient(135deg, #f8fff4 ${gradientPos}%, #eef5e9 ${gradientPos + 20}%)`;
     }, 8000);
-    
+
     // add additional sparkle on card load (modern micro-interaction)
     const style = document.createElement('style');
     style.textContent = `
@@ -262,7 +262,7 @@
         }
     `;
     document.head.appendChild(style);
-    
+
     // apply staggered animation after render (dynamic)
     const observeRender = new MutationObserver((mutations) => {
         mutations.forEach(() => {
@@ -275,9 +275,9 @@
         });
         observeRender.disconnect();
     });
-    
+
     observeRender.observe(document.body, { childList: true, subtree: true });
-    
+
     // add keyframe for card entrance
     const keyframeStyle = document.createElement('style');
     keyframeStyle.textContent = `
