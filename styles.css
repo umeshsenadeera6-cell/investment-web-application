@@ -486,9 +486,9 @@ body::after {
 }
 
 .plan-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-12px) scale(1.035);
     border-color: var(--card-border-hover);
-    box-shadow: 0 30px 50px -15px rgba(16, 185, 129, 0.35);
+    box-shadow: 0 35px 60px -15px rgba(16, 185, 129, 0.4);
 }
 
 .plan-card:hover::before {
@@ -507,6 +507,24 @@ body::after {
 }
 .plan-card[data-plan="Gold Plan"]::before {
     background: var(--gold);
+}
+
+/* Color themed hover styles */
+.plan-card[data-plan="High Profit Plan"]:hover {
+    border-color: var(--orange);
+    box-shadow: 0 35px 60px -15px rgba(245, 158, 11, 0.45);
+}
+.plan-card[data-plan="Green Saving Plan"]:hover {
+    border-color: var(--primary);
+    box-shadow: 0 35px 60px -15px rgba(16, 185, 129, 0.45);
+}
+.plan-card[data-plan="Silver Plan"]:hover {
+    border-color: var(--silver);
+    box-shadow: 0 35px 60px -15px rgba(161, 161, 170, 0.45);
+}
+.plan-card[data-plan="Gold Plan"]:hover {
+    border-color: var(--gold);
+    box-shadow: 0 35px 60px -15px rgba(251, 191, 36, 0.45);
 }
 
 /* Card Header Section */
@@ -873,7 +891,24 @@ body::after {
 
 [data-theme="light"] .plan-card:hover {
     border-color: var(--card-border-hover);
-    box-shadow: 0 30px 50px -15px rgba(5, 150, 105, 0.2);
+    box-shadow: 0 35px 60px -15px rgba(5, 150, 105, 0.2);
+}
+
+[data-theme="light"] .plan-card[data-plan="High Profit Plan"]:hover {
+    border-color: var(--orange);
+    box-shadow: 0 35px 60px -15px rgba(234, 88, 12, 0.25);
+}
+[data-theme="light"] .plan-card[data-plan="Green Saving Plan"]:hover {
+    border-color: var(--primary);
+    box-shadow: 0 35px 60px -15px rgba(5, 150, 105, 0.25);
+}
+[data-theme="light"] .plan-card[data-plan="Silver Plan"]:hover {
+    border-color: var(--silver);
+    box-shadow: 0 35px 60px -15px rgba(75, 85, 99, 0.25);
+}
+[data-theme="light"] .plan-card[data-plan="Gold Plan"]:hover {
+    border-color: var(--gold);
+    box-shadow: 0 35px 60px -15px rgba(217, 119, 6, 0.25);
 }
 
 [data-theme="light"] .plan-title {
