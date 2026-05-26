@@ -61,7 +61,7 @@
                 <div class="brand-header">
                     <div class="brand-title-group">
                         <img src="images/logo.png" alt="Logo" class="main-logo">
-                        <h1>Serendib Wealth Hub</h1>
+                        <h1>Serendib Green Plantation</h1>
                     </div>
                     <div class="client-session-card">
                         <i class="fas fa-user-shield"></i>
@@ -73,7 +73,7 @@
                     ${cardsHTML}
                 </div>
                 <div class="minimal-footer">
-                    <i class="fas fa-shield-halved"></i> Serendib Wealth Management Portal. Smart. Secure. Scaled.
+                    <i class="fas fa-shield-halved"></i> Serendib Green Plantation. Smart. Secure. Scaled.
                 </div>
             </div>
         `;
