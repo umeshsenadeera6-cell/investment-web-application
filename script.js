@@ -143,8 +143,8 @@
         function validateAndLogin() {
             const code = loginInput.value.trim().toUpperCase();
 
-            // Validation: Range SGS0001 - SGS0700
-            const isValidFormat = /^SGS\d{4}$/.test(code);
+            // Validation: Range SGS001 - SGS700 or SGS0001 - SGS0700
+            const isValidFormat = /^SGS\d{3,4}$/.test(code);
             let isValidRange = false;
 
             if (isValidFormat) {
