@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>High Profit Plan - Serendib Investment</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -315,6 +317,72 @@
             color: #2e6b3e;
         }
 
+        /* ========= LOADING SCREEN ========= */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e8f3e8 0%, #d4e8d4 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            animation: fadeOut 0.6s ease-out 1.8s forwards;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .loading-content {
+            text-align: center;
+            animation: gentleBounce 1.4s infinite ease-in-out;
+        }
+
+        .loading-content i {
+            font-size: 4.2rem;
+            color: #2d6a3b;
+            margin-bottom: 1rem;
+            display: inline-block;
+            filter: drop-shadow(0 8px 12px rgba(45, 106, 59, 0.2));
+            animation: iconFloat 1s infinite alternate;
+        }
+
+        .loading-content h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(125deg, #1e4a2f, #2d6a3b, #4caf50);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% { transform: scale(0.98); opacity: 0.8; }
+            50% { transform: scale(1.02); opacity: 1; }
+        }
+
+        @keyframes iconFloat {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-12px); }
+        }
+
         /* Navigation Actions */
         .nav-actions {
             display: flex;
@@ -363,6 +431,15 @@
     </style>
 </head>
 <body>
+
+<!-- LOADING SCREEN -->
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-content">
+        <i class="fas fa-chart-line"></i>
+        <h2>High Profit Plan</h2>
+    </div>
+</div>
+
 <div class="container">
     <div class="nav-actions">
         <a href="javascript:history.back()" class="back-btn">
@@ -646,6 +723,14 @@
     
     // Initialize when DOM is ready
     document.addEventListener('DOMContentLoaded', initialize);
+
+    // Hide loading screen
+    setTimeout(() => {
+        const loader = document.getElementById('loadingOverlay');
+        if (loader) {
+            loader.classList.add('hidden');
+        }
+    }, 1800);
 </script>
 </body>
 </html>
