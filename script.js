@@ -175,7 +175,7 @@
 
             if (isValidFormat) {
                 const numPart = parseInt(code.substring(3), 10);
-                if (numPart >= 1 && numPart <= 700) {
+                if (numPart >= 1 && numPart <= 900) {
                     isValidRange = true;
                 }
             }
